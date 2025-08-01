@@ -35,6 +35,7 @@ server.use([
 router.use([
   () => import('@adonisjs/core/bodyparser_middleware'),
   () => import('@adonisjs/auth/initialize_auth_middleware'),
+  () => import('@adonisjs/route-model-binding/rmb_middleware'),
 ])
 
 /**
