@@ -20,7 +20,20 @@ export default {
   ignore: ['/swagger', '/docs'],
   preferredPutPatch: 'PUT',
   common: {
-    parameters: {},
+    parameters: {
+      sortable: [
+        {
+          in: 'query',
+          name: 'sortBy',
+          schema: { type: 'string', example: 'foo' },
+        },
+        {
+          in: 'query',
+          name: 'sortType',
+          schema: { type: 'string', example: 'ASC' },
+        },
+      ],
+    },
     headers: {},
   },
   securitySchemes: {
@@ -28,6 +41,11 @@ export default {
       type: 'http',
       scheme: 'bearer',
       bearerFormat: 'JWT',
+    },
+    ApiKeyAuth: {
+      type: 'apiKey',
+      in: 'header',
+      name: 'X-API-Key',
     },
   },
   authMiddlewares: ['auth', 'auth:api'],
