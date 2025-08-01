@@ -3,28 +3,36 @@ import url from 'node:url'
 
 export default {
   path: path.dirname(url.fileURLToPath(import.meta.url)) + '/../',
-  title: 'Foo',
-  version: '1.0.0',
-  description: '',
+  title: 'API Fournisseur CG',
+  version: '3.0.0',
+  description:
+    "API REST pour la gestion des fournisseurs au Congo. Services de logistique, d'importation et de gestion des fournisseurs.",
   tagIndex: 2,
   productionEnv: 'production',
   info: {
-    title: 'title',
-    version: '1.0.0',
-    description: '',
+    title: 'API Fournisseur CG',
+    version: '3.0.0',
+    description:
+      "API REST complète pour la gestion des fournisseurs au Congo. Inclut l'authentification, la gestion des fournisseurs, les devis, le suivi des commandes et les services de logistique.",
   },
   snakeCase: true,
-
-  debug: false,
+  debug: true,
   ignore: ['/swagger', '/docs'],
   preferredPutPatch: 'PUT',
   common: {
     parameters: {},
     headers: {},
   },
-  securitySchemes: {},
+  securitySchemes: {
+    BearerAuth: {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT',
+    },
+  },
   authMiddlewares: ['auth', 'auth:api'],
   defaultSecurityScheme: 'BearerAuth',
   persistAuthorization: true,
-  showFullPath: false,
+  showFullPath: true,
+  scalar: {},
 }

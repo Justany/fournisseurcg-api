@@ -11,13 +11,26 @@ import router from '@adonisjs/core/services/router'
 import AutoSwagger from 'adonis-autoswagger'
 import swagger from '#config/swagger'
 
+// start/routes.ts
+router.ws('/ws', ({ ws }) => {
+  ws.on('message', (message) => {
+    ws.send('Received: ' + message.toString())
+  })
+
+  ws.on('close', () => {
+    console.log('Connection closed')
+  })
+
+  ws.send('Hello! Your id is ' + ws.id)
+})
+
 // Routes pour Swagger documentation
 router.get('/swagger', async () => {
   return AutoSwagger.default.docs(router.toJSON(), swagger)
 })
 
 router.get('/docs', async () => {
-  return AutoSwagger.default.ui('/swagger', swagger)
+  return AutoSwagger.default.scalar('/swagger')
 })
 
 // Groupe de routes pour l'API v3
@@ -92,3 +105,5 @@ router.get('/', async () => {
     documentation: 'https://api.fournisseur.cg/v3/docs',
   }
 })
+
+export default router
